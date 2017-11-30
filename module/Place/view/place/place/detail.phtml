@@ -15,14 +15,16 @@ if (isset($rated) && $rated == TRUE) {
     echo '</script>';
 }
 ?>
+<input type="hidden" value="<?php echo $place->latitude; ?>" id="latitude"/>
+<input type="hidden" value="<?php echo $place->longtitude; ?>" id="longtitude"/>
 <div class="container">
     <h3><?php echo $title; ?></h3>
-
     <div class="criuse-grid">
         <div class="criuse-grid-head">
             <div class="criuse-img">
-                <div class="criuse-pic detail-place">
-                    <img src="../images/<?php echo $place->imgUrl; ?>" title="criuse-name">
+                <div class="criuse-pic detail-place" style="display: flex;">
+                    <div class="left"><img src="../images/<?php echo $place->imgUrl; ?>" title="criuse-name" width="700px"></div>
+                    <div class="right"><div id="map" style="width: 535px; height: 425px; margin-left: 20px;"></div></div>
                 </div>
             </div>
         </div>
@@ -53,16 +55,15 @@ if (isset($rated) && $rated == TRUE) {
                             <?php
                         }
                     }
-                } else
-                    {
-                for ($k = 1; $k <= 5; $k++) {
+                } else {
+                    for ($k = 1; $k <= 5; $k++) {
+                        ?>
+                        <button onclick="<?php echo $haslogin == true ? "document.getElementById('contextform').style.display='block'" : ""; ?>" style="width:auto;" class="btnstar"> <a <?php echo $haslogin == true ? "href='/place/detail?score=' . $k . '&placeId=' . $place->placeId " : "onclick='alertNoti()'"; ?>><img src="../images/ic_star_empty.png" title="criuse-name"></a></button>
+
+                        <?php
+                    }
+                }
                 ?>
-                            <button onclick="<?php echo $haslogin == true ? "document.getElementById('contextform').style.display='block'" : ""; ?>" style="width:auto;" class="btnstar"> <a <?php echo $haslogin == true ? "href='/place/detail?score=' . $k . '&placeId=' . $place->placeId ": "onclick='alertNoti()'"; ?>><img src="../images/ic_star_empty.png" title="criuse-name"></a></button>
-                
-<?php
-}
-}
-?>
             </h1>
             <h3><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><?php echo ' ' . $place->address; ?></h3>
             <div id="contextform" class="modal">
@@ -134,10 +135,13 @@ if (isset($rated) && $rated == TRUE) {
                 </form>
             </div>
             <hr>
-<?php echo $place->description; ?>
+            
+            <?php echo $place->description; ?>
+            
         </div>
     </div>
 </div>
+
 <script>
 // Get the modal
     var modal = document.getElementById('contextform');
@@ -155,7 +159,42 @@ if (isset($rated) && $rated == TRUE) {
         document.getElementById('contextform').style.display = 'block';
         document.getElementById('starnumber').value = clicked_id;
     }
-    function alertNoti(){
+    function alertNoti() {
         alert("Đăng nhập để thực hiện chức năng này!");
     }
 </script>
+
+<script>
+      // This example adds a predefined symbol (an arrow) to a polyline.
+      // Setting offset to 100% places the arrow at the end of the line.
+
+      function initMap() {
+         log = $("#longtitude").val();
+         lat = $("#latitude").val();
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: {lat: parseFloat(lat), lng: parseFloat(log)},
+          mapTypeId: 'terrain'
+        });
+
+        // Define a symbol using a predefined path (an arrow)
+        // supplied by the Google Maps JavaScript API.
+        var lineSymbol = {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          strokeColor:"#B40404"
+        };
+
+        // Create the polyline and add the symbol via the 'icons' property.
+        var line = new google.maps.Polyline({
+          path: [{lat: parseFloat(lat), lng: parseFloat(log)}, {lat: parseFloat(lat), lng: parseFloat(log)}],
+          icons: [{
+            icon: lineSymbol,
+            offset: '100%'
+          }],
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdBSfya2WPA6jDKed9BKACUtgZW36vCfk&libraries=places&callback=initMap">
+    </script>
