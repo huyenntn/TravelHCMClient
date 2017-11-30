@@ -1,0 +1,207 @@
+<?php
+$title = 'Đề xuất cho bạn';
+$this->headTitle($title);
+?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+</div>
+
+<?php
+//if ((!isset($haslogin) && isset($clicked) && $clicked == TRUE) || ($haslogin == FALSE && isset($clicked) && $clicked == TRUE)) {
+//    echo '<script language="javascript">';
+//    echo 'alert("Đăng nhập để thực hiện chức năng này!")';
+//    echo '</script>';
+//}
+?>
+<div class="row">
+    <div class="container" >
+
+        <div class="wrap" style="display: flex">
+            <div class="left container-form" > 
+                <?php
+//                $form->setAttribute('action', $this->url('recommendation', ['action' => 'index']));
+//                $form->setAttribute('method', 'post');
+                $form->prepare();
+                echo $this->form()->openTag($form);
+                ?>
+
+                <div class="contact-form">
+                    <div class="contact-to row form-group">
+                        <?php echo $this->formRow($form->get('budgetId')); ?>
+                    </div>
+                    <div class="contact-to row form-group">
+                        <?php echo $this->formRow($form->get('companionId')); ?>
+                    </div>
+                    <div class="contact-to row form-group">
+                        <?php echo $this->formRow($form->get('weatherId')); ?>
+                    </div>
+                    <div class="contact-to row">
+                        <span> <?php echo $this->formRow($form->get('submit')); ?> </span>
+                    </div>
+                    <?php
+                    echo $this->form()->closeTag();
+                    ?>
+
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div class="right-list-recommend">
+                <?php
+                $placeCategoryForm->prepare();
+                echo $this->form()->openTag($placeCategoryForm);
+                ?>
+                <div class="contact-to row">
+                    <?php echo $this->formRow($placeCategoryForm->get('placecategoryId')); ?>
+                    <br>
+                </div>
+                <?php
+                echo $this->form()->closeTag();
+                ?>
+
+                <div class="destinations">
+                    <div class="destination-places">
+                        <div class="destination-places-grids">
+                            <div id="title-recommend"></div>
+                            <div id="list-recommend">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function category($type) {
+        $('#list-recommend').html("");
+        var tp = $type;
+        var budget = $('#budget-select').val();
+        var companion = $('#companion-select').val();
+        var weather = $('#weather-select').val();
+        $.ajax({
+            type: 'POST',
+            url: '/recommendation/index',
+            dataType: 'json',
+            data: {categoryId: tp, budgetId: budget, companionId: companion, weatherId: weather},
+            success: function (data) {
+                var trHTML = '';
+                $.each(data, function (i, item) {
+                    trHTML += '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 destination-places-grids" >';
+                    trHTML += '<div class="dest-place-pic main_box user_style4" data-hipop="two-horizontal">';
+                    trHTML += '<a href="place/detail?placeId=' + item.placeId + '"><img id="img-recommend" src="../images/' + item.imgUrl + '"/></a>';
+                    trHTML += '</div>';
+                    trHTML += '<div class="dest-place-opt">';
+                    trHTML += '<ul class="dest-place-opt-cast">';
+                    trHTML += '<li><a id="placeName" class="d-place" href="#">' + item.placeName + '</a></li>';
+                    trHTML += '<li><a id="placeAddress" class="d-price" href="#">' + item.address + '</a></li>';
+                    trHTML += '<div class="clear"> </div>';
+                    trHTML += '</ul>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                });
+                $('#list-recommend').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#list-recommend').html("");
+        var tp = 0;
+        var budget = $('#budget-select').val();
+        var companion = $('#companion-select').val();
+        var weather = $('#weather-select').val();
+        $.ajax({
+            type: 'POST',
+            url: '/recommendation/index',
+            dataType: 'json',
+            data: {categoryId: tp, budgetId: budget, companionId: companion, weatherId: weather},
+            success: function (data) {
+                console.log(data);
+                var trHTML = '';
+                $.each(data, function (i, item) {
+                    trHTML += '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 destination-places-grids" >';
+                    trHTML += '<div class="dest-place-pic main_box user_style4" data-hipop="two-horizontal">';
+                    trHTML += '<a href="place/detail?placeId=' + item.placeId + '"><img id="img-recommend" src="../images/' + item.imgUrl + '"/></a>';
+                    trHTML += '</div>';
+                    trHTML += '<div class="dest-place-opt">';
+                    trHTML += '<ul class="dest-place-opt-cast">';
+                    trHTML += '<li><a id="placeName" class="d-place" href="#">' + item.placeName + '</a></li>';
+                    trHTML += '<li><a id="placeAddress" class="d-price" href="#">' + item.address + '</a></li>';
+                    trHTML += '<div class="clear"> </div>';
+                    trHTML += '</ul>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                });
+                $('#list-recommend').append(trHTML);
+                $('#title-recommend').html("Top 10 địa điểm được đánh giá cao nhất! <hr>");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var frm = $('#form-context');
+
+    frm.submit(function (e) {
+
+        e.preventDefault();
+
+        $('#list-recommend').html("");
+        $('#title-recommend').html("Top 10 địa điểm được lựa chọn theo ngữ cảnh!<hr>");
+        var tp = 0;
+        var budget = $('#budget-select').val();
+        var companion = $('#companion-select').val();
+        var weather = $('#weather-select').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/recommendation/index',
+            dataType: 'json',
+            data: {categoryId: tp, budgetId: budget, companionId: companion, weatherId: weather},
+            success: function (data) {
+                console.log(data);
+                var trHTML = '';
+                $.each(data, function (i, item) {
+                    trHTML += '<div id="item-recommend" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 destination-places-grids" >';
+                    trHTML += '<div class="dest-place-pic main_box user_style4" data-hipop="two-horizontal">';
+                    trHTML += '<a href="place/detail?placeId=' + item.placeId + '"><img id="img-recommend" src="../images/' + item.imgUrl + '"/></a>';
+                    trHTML += '</div>';
+                    trHTML += '<div class="dest-place-opt">';
+                    trHTML += '<ul class="dest-place-opt-cast">';
+                    trHTML += '<li><a id="placeName" class="d-place" href="#">' + item.placeName + '</a></li>';
+                    trHTML += '<li><a id="placeAddress" class="d-price" href="#">' + item.address + '</a></li>';
+                    trHTML += '<div class="clear"> </div>';
+                    trHTML += '</ul>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                });
+                $('#list-recommend').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+        });
+    });
+</script>
+
+<script>
+    function notifi() {
+        alert("Đăng nhập để thực hiện chức năng!");
+        return false;
+    }
+</script>

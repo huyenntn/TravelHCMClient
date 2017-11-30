@@ -1,0 +1,118 @@
+<?php
+$title = 'Danh sách Tour';
+$this->headTitle($title);
+?>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+</div>
+<div class="wrap">
+    <div class=" destinations">
+        <div class="row destination-places">
+            <?php
+            echo $this->form()->openTag($provinceForm);
+            echo $this->formRow($provinceForm->get('province_id'));
+            echo $this->form()->closeTag();
+            ?>
+
+
+            <div id="list-tour" class="destination-places-grids">
+
+            </div>
+        </div>
+    </div>	
+</div>
+<script>
+    $(document).ready(function () {
+        $('#list-tour').html("");
+        var tp = 0;
+        $.ajax({
+            type: 'POST',
+            url: '/tour/index',
+            dataType: 'json',
+            data: {province_id: tp},
+            success: function (data) {
+                console.log(data);
+                var trHTML = '';
+                $.each(data, function (i, item) {
+                    trHTML += '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" onclick="location.href = \'tour/detail?tourId=' + item.tourId + '\';" style="cursor: pointer; ">';
+                    trHTML += '<div class="tm-tours-box-1">';
+                    trHTML += '<img class="img-responsive" src="../images/' + item.image + '" width = 530/>';
+                    trHTML += '<div class="tm-tours-box-1-info">';
+                    trHTML += '<div class="tm-tours-box-1-info-left">';
+                    trHTML += '<p class="text-uppercase margin-bottom-20">' + item.tourName + '</p>';
+                    trHTML += '<p class="gray-text">' + item.dateStart + '</p>';
+                    trHTML += '</div>';
+                    trHTML += ' <div class="tm-tours-box-1-info-right">';
+                    trHTML += '<p class="gray-text tours-1-description">' + item.transport + '</p>';
+                    trHTML += '<p class="gray-text tours-1-description">' + item.bookNumber + '/' + item.seatNumber + ' đã được đặt chỗ</p>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                    trHTML += '<div class="tm-tours-box-1-link">';
+                    trHTML += '<div class="tm-tours-box-1-link-left">';
+                    trHTML += item.dayNumber + ' Ngày | ' + item.nightNumber;
+                    +'Đêm';
+                    trHTML += '</div>';
+                    trHTML += '<a href="#" class="tm-tours-box-1-link-right">';
+                    trHTML += item.price + ' ' + item.unit;
+                    trHTML += '</a>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+
+                });
+                $('#list-tour').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+
+        });
+    });
+</script>
+<script>
+    function province($provinceId) {
+        $('#list-tour').html("");
+        var tp = $provinceId;
+        $.ajax({
+            type: 'POST',
+            url: '/tour/index',
+            dataType: 'json',
+            data: {province_id: tp},
+            success: function (data) {
+                console.log(data);
+                var trHTML = '';
+                $.each(data, function (i, item) {
+                    trHTML += '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" onclick="location.href = \'tour/detail?tourId=' + item.tourId + '\';" style="cursor: pointer; ">';
+                    trHTML += '<div class="tm-tours-box-1">';
+                    trHTML += '<img class="img-responsive" src="../images/' + item.image + '"/>';
+                    trHTML += '<div class="tm-tours-box-1-info">';
+                    trHTML += '<div class="tm-tours-box-1-info-left">';
+                    trHTML += '<p class="text-uppercase margin-bottom-20">' + item.tourName + '</p>';
+                    trHTML += '<p class="gray-text">' + item.dateStart + '</p>';
+                    trHTML += '</div>';
+                    trHTML += ' <div class="tm-tours-box-1-info-right">';
+                    trHTML += '<p class="gray-text tours-1-description">' + item.transport + '</p>';
+                    trHTML += '<p class="gray-text tours-1-description">' + item.bookNumber + '/' + item.seatNumber + ' đã được đặt chỗ</p>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                    trHTML += '<div class="tm-tours-box-1-link">';
+                    trHTML += '<div class="tm-tours-box-1-link-left">';
+                    trHTML += item.dayNumber + ' Ngày | ' + item.nightNumber + 'Đêm';
+                    trHTML += '</div>';
+                    trHTML += '<a href="#" class="tm-tours-box-1-link-right">';
+                    trHTML += item.price + ' ' + item.unit;
+                    trHTML += '</a>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+                    trHTML += '</div>';
+
+                });
+                $('#list-tour').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            },
+
+        });
+    }
+</script>

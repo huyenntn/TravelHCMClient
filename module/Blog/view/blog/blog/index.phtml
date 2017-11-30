@@ -1,0 +1,39 @@
+<?php
+$title = 'Cẩm nang du lịch';
+$this->headTitle($title);
+?>
+
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+</div>
+
+<div class="blog">
+    <div class="blog-grids">
+        <div class="wrap">
+            <div class="blog-grids-box">
+                <?php foreach ($listblog as $blog): ?>
+                <div class="blog-grid">
+                    <div class="blog-poast-head">
+                        <div class="blog-art-pic">
+                            <a class="post-pic" href="#"> <img src="images/<?php echo $blog->blogImage; ?>" title="poast-name" /></a>
+                        </div>
+                        <div class="blog-poast-info">
+                            <ul>
+                                <li><a class="p-date" href="#"><span> </span><?php echo $blog->writedate; ?> </a></li>
+                                <div class="clear"> </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <h3><a href="blog/detail?blogId=<?php echo $blog->blogId; ?>"><?php echo $blog->blogName; ?></a></h3>
+                        <p><?php echo $blog->blogContent; ?></p>
+                        <a class="btn" href="blog/detail?blogId=<?php echo $blog->blogId; ?>">Xem chi tiết</a>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+                <div class="clear"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----//End-Blog---->

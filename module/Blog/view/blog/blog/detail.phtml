@@ -1,0 +1,28 @@
+<?php
+$title = $blog->blogName;
+$this->headTitle($title);
+?>
+
+<div class="criuses">
+    <div class="criuses-head">
+        <div class="wrap">
+            <h3><?php echo $blog->blogName; ?></h3>
+        </div>
+        <!---End-destinatiuons---->
+    </div>
+    <!----//End-find-place---->
+    <!---start-criuse-grids----->
+    <div class="criuse-main">
+        <div class="wrap">
+            <div class="criuse-grid-head">
+                <div class="criuse-img">
+                        <img src="../images/<?php echo $blog->blogImage; ?>" title="criuse-name" />
+                </div>
+            </div>
+            <div class="criuse-grid-info">
+                <p><?php echo $blog->blogContent; ?></p>
+            </div>
+        </div>
+    </div>
+    <!---//End-criuse-grids----->
+</div>

@@ -1,0 +1,37 @@
+<?php
+$title = 'Địa điểm du lịch';
+$this->headTitle($title);
+?>
+ 
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+<div class="destinations">
+<div class="destination-places">
+    <div class="wrap">
+        <div class="destination-places-grids">
+            <?php
+            foreach ($listplace as $place):
+                ?>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 destination-places-grids" onclick="location.href = 'place/detail?placeId=<?php echo $place->placeId;; ?>';">
+                    <div class="dest-place-pic main_box user_style4" data-hipop="two-horizontal">
+                        <img src="images/<?php echo $place->imgUrl; ?>" title="place-name" />
+                        <a href="#" class="popup"> </a>
+                        <a href="#" class="popup2"> </a>
+                    </div>
+                    <div class="dest-place-opt">
+                        <ul class="dest-place-opt-cast">
+                            <li><a class="d-place" href="#"><?php echo $place->placeName; ?></a></li>
+                            <li><a class="d-price" href="#"><?php echo $place->address; ?></a></li>
+                            <div class="clear"> </div>
+                        </ul>
+                    </div>
+                </div>
+                <?php
+            endforeach;
+            ?>
+        </div>
+
+    </div>
+</div>	
+</div>
+</div>

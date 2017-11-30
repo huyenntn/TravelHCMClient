@@ -1,0 +1,25 @@
+<?php
+$tourName = $place->placeName;
+$title = 'Thông tin chi tiết địa điểm ' . $tourName;
+$this->headTitle($title);
+?>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+
+    <div class="criuse-grid">
+        <div class="criuse-grid-head">
+            <div class="criuse-img">
+                <div class="criuse-pic">
+                    <img src="../images/<?php echo $place->imgUrl; ?>" title="criuse-name">
+                </div>
+            </div>
+        </div>
+        <div class="criuse-grid-info">
+            <h1><a href="#"><?php echo $place->placeName; ?></a></h1>
+            <h3><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><?php echo ' '.$place->address; ?></h3>
+            <hr>
+            <?php echo $place->description; ?>
+        </div>
+    </div>
+</div>
+

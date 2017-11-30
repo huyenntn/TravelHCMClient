@@ -1,0 +1,76 @@
+<?php
+$title = 'Cập nhật thông tin cá nhân';
+$this->headTitle($title);
+use Zend\Session\Container;
+$userSession = new Container('user');
+$user = $userSession->user;
+?>
+
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+</div>
+
+<div class="row">
+    <div class="container" >
+        <div class="wrap" style="display: flex">
+            <div class="left container-form" > 
+                <?php
+                $form->setAttribute('action','/customer/edit?userId='.$userId);
+                $form->prepare();
+                echo $this->form()->openTag($form);
+                ?>
+                <div class="contact-form">
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('name'));
+                        ?>
+                    </div>
+
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('password'));
+                        ?>
+                    </div>
+
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('cmnd'));
+                        ?>
+                    </div>
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('banknumber'));
+                        ?>
+                    </div>
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('bankname'));
+                        ?>
+                    </div>
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('address'));
+                        ?>
+                    </div>
+                    <div class="contact-to row">
+                        <?php
+                        echo $this->formRow($form->get('phone'));
+                        ?>
+                    </div>
+                    <div class="contact-to row">
+                        <span><?php
+                            echo $this->formRow($form->get('submit'));
+                            ?></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <?php
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+            <div class="right">
+                <img src="../images/travel.jpg" title="news-pic1" width="100%">
+            </div>
+        </div>
+    </div>
+</div>

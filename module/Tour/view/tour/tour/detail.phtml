@@ -1,0 +1,36 @@
+<?php
+$tourName = $tour->tourName;
+$title = 'Thông tin chi tiết tour ' . $tourName;
+$this->headTitle($title);
+?>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+
+    <div class="criuse-grid">
+        <div class="criuse-grid-head">
+            <div class="criuse-img">
+                <div class="criuse-pic">
+                    <img src="../images/s1.jpg" title="criuse-name">
+                </div>
+            </div>
+            <div class="criuse-info">
+                <div class="criuse-info-left">
+                    <ul>
+                        <li><a class="c-calendar" href="#"><span> </span><?php echo $tour->dateStart . " đến " . $tour->dateEnd; ?></a></li>
+                        <li><a class="c-hotel" href="#"><span> </span><?php echo $tour->dayNumber . " Ngày| " . $tour->nightNumber . " Đêm"; ?></a></li>
+                        <li><a class="c-car" href="#"><span> </span><?php echo $tour->transport; ?></a></li>
+                        <li><a class="c-coin" href="#"><span> </span><?php echo $tour->price." ". $tour->unit; ?></a></li>
+                        <div class="clear"> </div>
+                    </ul>
+                </div>
+                <div class="clear"> </div>
+            </div>
+        </div>
+        <div class="criuse-grid-info">
+            <h1><a href="#"><?php echo $tour->tourName; ?></a></h1>
+            <?php echo $tour->content; ?>
+            <a class="btn" href="<?php echo $login == TRUE?'/booktour/index?tourId='.$tour->tourId:'#'?>" onclick="<?php echo $login == TRUE?"":"alert('Đăng nhập để thực hiện chức năng này!');"?>" >Đặt tour</a>
+        </div>
+    </div>
+</div>
+

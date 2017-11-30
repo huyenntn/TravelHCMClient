@@ -1,0 +1,53 @@
+<?php
+$title = 'Lịch sử đặt tour';
+$this->headTitle($title);
+?>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+
+</div>
+
+<div class="container">
+    <table class="table table-hover wrap">
+        <thead>
+            <tr>
+                <th><label>Mã đặt tour</label></th>
+                <th><label>Tên tour</label></th>
+                <th><label>Số lượng chỗ</label></th>
+                <th><label>Giá trị (VND)</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($listhistory as $historyitem):
+                ?>
+                <tr>
+                    <td>
+                        <?php
+                        echo $historyitem->booktourId;
+                        ?>
+                    </td>
+                    <td>
+                        <a href="/tour/detail?tourId=<?php echo $historyitem->tourId;?>">
+                        <?php
+                        echo $historyitem->tourName;
+                        ?>
+                    </a>
+                    </td>
+                    <td>
+                        <?php
+                        echo $historyitem->seatNumber;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo $historyitem->price;
+                        ?>
+                    </td>
+                </tr>
+                <?php
+            endforeach;
+            ?>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,259 @@
+<?php
+$title = 'Vi vu với VOYAGE';
+$this->headTitle($title);
+?>
+
+<!----start-images-slider---->
+<div class="images-slider">
+    <!-- start slider -->
+    <div id="fwslider">
+        <div class="slider_container">
+            <!-- /Duplicate to create more slides -->
+            <div class="slide">
+                <img src="images/slider-bg.jpg" alt=""/>
+                <div class="slide_content">
+                    <div class="slide_content_wrap">
+                        <!-- Text title -->
+                        <h4 class="title">Combo Sapa 2N1D : Giá Siêu Tiết Kiệm</h4>
+                        <!-- /Text title -->
+
+                        <div class="slide-btns description">
+                            <ul>
+                                <li><a class="mapbtn" href="tour/detail?tourId=3">Xem chi tiết </a></li>
+                                <div class="clear"> </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/slide -->
+        </div>
+        <div class="timers"> </div>
+        <div class="slidePrev"><span> </span></div>
+        <div class="slideNext"><span> </span></div>
+    </div>
+    <!--/slider -->
+</div>
+
+<!----start-offers---->
+<div class="offers">
+    <div class="offers-head">
+        <h3>Tour nổi bật</h3>
+    </div>
+    <!-- start content_slider -->
+    <!-- FlexSlider -->
+    <!-- Place somewhere in the <body> of your page -->
+    <section class="slider">
+        <div class="flexslider carousel">
+            <ul class="slides">
+                <?php
+                foreach ($listtour as $tour):
+                    ?>
+                    <li onclick="location.href = 'tour/detail?tourId=<?php echo $tour->tourId; ?>';" style="cursor: pointer; ">
+                        <img src="images/<?php echo $tour->image; ?>" />
+                        <!----place-caption-info---->
+                        <div class="caption-info">
+                            <div class="caption-info-head">
+                                <div class="caption-info-head-left">
+                                    <h4><a href="#"><?php echo $tour->tourName; ?></a></h4>
+                                    <span><?php echo $tour->price . " " . $tour->unit; ?></span>
+                                </div>
+                                <div class="caption-info-head-right">
+                                    <span> </span>
+                                </div>
+                                <div class="clear"> </div>
+                            </div>
+                        </div>
+                        <!----//place-caption-info---->
+                    </li>
+                    <?php
+                endforeach;
+                ?>
+            </ul>
+        </div>
+    </section>
+    <!-- //End content_slider -->
+</div>
+
+<!----//End-offers---->
+<!---start-holiday-types---->
+<div class="offers holiday-types">
+    <div class="holiday-type-head">
+        <h3>Điểm đến được yêu thích</h3>
+    </div>
+    <section class="slider ">
+        <div class="flexslider carousel">
+            <ul class="slides">
+                <?php
+                foreach ($topPlaces as $topPlace):
+                    ?>
+                    <li onclick="location.href = 'place/detail?placeId=<?php echo $topPlace->placeId; ?>';" style="cursor: pointer; ">
+                        <img src="images/<?php echo $topPlace->imgUrl; ?>" height="200px" />
+                        <!----place-caption-info---->
+                        <div class="caption-info">
+                            <div class="caption-info-head">
+                                <div class="caption-info-head-left">
+                                    <h4><a href="#"><?php echo $topPlace->placeName; ?></a></h4>
+                                </div>
+
+                                <div class="clear"> </div>
+                            </div>
+                        </div>
+                        <!----//place-caption-info---->
+                    </li>
+                    <?php
+                endforeach;
+                ?>
+            </ul>
+        </div>
+    </section>
+
+</div>
+<!---//End-holiday-types---->
+<!----//End-images-slider---->
+<!----start-clients---->
+<div class="clients">
+    <div class="client-grids">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing vspacingbottom30 vspacingtop25">
+            <div class="whyIvivu">
+                <div class="client-head">
+                    <h3>5 Lí do chọn <a href="application" style="color: #1DD2AF">VOYAGE</a></h3>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing vspacingtop15">
+                    <ul class="">
+                        <li class="homewhy-item">
+                            <div class="homewhy-item-outer">
+                                <img class="socialIcon pull-left" src="//res.ivivu.com/hotel/img/home/icon/money.svg" alt="">
+                                <div data-whyitem="1" class="homewhy-item-inner pull-left">
+                                    <div><span>Đảm bảo giá tốt nhất</span></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 extendContent" id="homewhy-item-content-1" style="display: block;">
+                                <p>
+                                    VOYAGE luôn có giá tốt nhất thị trường và cam kết <b>hoàn tiền chênh lệch</b> nếu
+                                    bạn có giá thấp hơn.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="homewhy-item">
+                            <div class="homewhy-item-outer">
+                                <img class="socialIcon pull-left" src="//res.ivivu.com/hotel/img/home/icon/gift.svg" alt="">
+                                <div data-whyitem="2" class="homewhy-item-inner pull-left">
+                                    <div><span>Deal tốt mỗi ngày</span></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 extendContent" id="homewhy-item-content-2" style="display: block;">
+                                <p>
+                                    Chúng tôi luôn có những khách sạn và tour đặc biệt mỗi ngày, không chỉ <b>
+                                        Giá
+                                        tốt
+                                    </b> mà còn có những <b>Dịch vụ độc, lạ</b>, những <b>Khuyến mãi hấp dẫn</b>. Nào
+                                    cùng săn - Nào cùng tung tăng!
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="homewhy-item">
+                            <div class="homewhy-item-outer">
+                                <img class="socialIcon pull-left" src="//res.ivivu.com/hotel/img/home/icon/infomation.svg" alt="">
+                                <div data-whyitem="3" class="homewhy-item-inner pull-left">
+                                    <div class="visible-xs"><span>Sản phẩm phong phú</span></div>
+                                    <div class="hidden-xs"><span>Sản phẩm du lịch phong phú</span></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 extendContent" id="homewhy-item-content-3" style="display: block;">
+                                <p>
+                                    <b>VOYAGE</b> tự tin là thổ địa du lịch, cung cấp cho bạn những thông tin du lịch
+                                    chọn lọc, độc đáo và mới nhất về tất cả các vùng miền qua <a href="blog">Cẩm nang du lịch</a>
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="homewhy-item">
+                            <div class="homewhy-item-outer">
+                                <img class="socialIcon pull-left" src="//res.ivivu.com/hotel/img/home/icon/247.svg" alt="">
+                                <div data-whyitem="4" class="homewhy-item-inner pull-left">
+                                    <div class="visible-xs"><span>Dịch vụ chu đáo</span></div>
+                                    <div class="hidden-xs"><span>Dịch vụ khách hàng chu đáo</span></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 extendContent" id="homewhy-item-content-4" style="display: block;">
+                                <p>
+                                    Chúng tôi có đội ngũ nhân viên tư vấn du lịch chuyên nghiệp và thân thiện sẵn sàng
+                                    hỗ trợ bạn từ khi đặt phòng cho đến lúc kết thúc chuyến đi.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="homewhy-item">
+                            <div class="homewhy-item-outer">
+                                <img class="socialIcon pull-left" src="//res.ivivu.com/hotel/img/home/icon/credit.svg" alt="">
+                                <div data-whyitem="5" class="homewhy-item-inner pull-left">
+                                    <div class="visible-xs"><span>Xuất hóa đơn GTGT</span></div>
+                                    <div class="hidden-xs"><span>Xuất hóa đơn GTGT</span></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 extendContent" id="homewhy-item-content-5" style="display: block;">
+                                <p>
+                                    Chỉ duy nhất với VOYAGE, bạn không cần lo lắng về hóa đơn GTGT nữa, hãy liên lạc với chúng tôi để được hỗ trợ đặt phòng và nhận hóa đơn
+                                    hợp lệ.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+<!--            <div class="customerReviews col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                <h3 class="earthGodHeading"><a target="_blank" href="//www.ivivu.com/blog/2015/11/vi-sao-nen-chon-ivivu-com-tho-dia-du-lich-cho-chuyen-di-cua-ban/">iVIVU - Thổ địa du lịch</a></h3>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vremoveSpacing vspacingtop15">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 earthGod">
+                        <span>
+                            Cùng iVIVU.com, bạn không còn bỏ lỡ bất cứ điều tuyệt vời nào trong chuyến du lịch của mình.
+                            Chúng tôi lựa chọn cho bạn
+                            <span class="highlight">
+                                <a target="_blank" href="//www.ivivu.com/blog/2015/11/vi-sao-nen-chon-ivivu-com-tho-dia-du-lich-cho-chuyen-di-cua-ban/">
+                                    khách sạn phù hợp, tour đặc sắc, thông tin du lịch chi tiết kèm mức giá hấp dẫn.
+                                </a>
+                            </span> <br>
+
+                            Dù bất cứ nơi đâu, hãy để iVIVU.com giúp chuyến đi của bạn trở nên hoàn hảo nhất.
+                        </span>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+<!----//End-clients---->
+
+<!-- jQuery -->
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<!-- FlexSlider -->
+<script defer src="js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+                        $(function () {
+                            SyntaxHighlighter.all();
+                        });
+                        $(window).load(function () {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                animationLoop: true,
+                                itemWidth: 250,
+                                itemMargin: 5,
+                                start: function (slider) {
+                                    $('body').removeClass('loading');
+                                }
+                            });
+                        });
+</script>

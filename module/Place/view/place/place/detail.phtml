@@ -1,0 +1,161 @@
+<?php
+$tourName = $place->placeName;
+$title = 'Thông tin chi tiết địa điểm ' . $tourName;
+$this->headTitle($title);
+?>
+<?php
+if (isset($login) && $login == FALSE) {
+    echo '<script language="javascript">';
+    echo 'alert("Đăng nhập để thực hiện chức năng này!!")';
+    echo '</script>';
+}
+if (isset($rated) && $rated == TRUE) {
+    echo '<script language="javascript">';
+    echo 'alert("Cảm ơn bạn đã đánh giá!")';
+    echo '</script>';
+}
+?>
+<div class="container">
+    <h3><?php echo $title; ?></h3>
+
+    <div class="criuse-grid">
+        <div class="criuse-grid-head">
+            <div class="criuse-img">
+                <div class="criuse-pic detail-place">
+                    <img src="../images/<?php echo $place->imgUrl; ?>" title="criuse-name">
+                </div>
+            </div>
+        </div>
+        <div class="criuse-grid-info">
+            <h1><a href="#"><?php echo $place->placeName; ?></a> 
+                <?php
+                if (isset($haslogin) && $haslogin) {
+                    if ($rating > 0) {
+                        $nonerate = 5 - $rating;
+                        for ($i = 1; $i <= $rating; $i++) {
+                            ?>
+
+                            <button id="<?php echo $i; ?>" onclick="reply_click(this.id)" style="width:auto;" class="btnstar"><a href="#"><img src="../images/ic_star_filled.png" title="criuse-name"></a></button>
+                            <?php
+                        }
+                        while ($nonerate > 0) {
+                            ?>
+                            <button id="<?php echo 6 - $nonerate; ?>" onclick="reply_click(this.id)" style="width:auto;" class="btnstar"><a href="#"><img src="../images/ic_star_empty.png" title="criuse-name"></a></button>
+
+                            <?php
+                            $nonerate--;
+                        }
+                    } else {
+                        for ($i = 1; $i <= 5; $i++) {
+                            ?>
+
+                            <button id="<?php echo $i; ?>" onclick="reply_click(this.id)" style="width:auto;" class="btnstar"><a href="#"><img src="../images/ic_star_empty.png" title="criuse-name"></a></button>
+                            <?php
+                        }
+                    }
+                } else
+                    {
+                for ($k = 1; $k <= 5; $k++) {
+                ?>
+                            <button onclick="<?php echo $haslogin == true ? "document.getElementById('contextform').style.display='block'" : ""; ?>" style="width:auto;" class="btnstar"> <a <?php echo $haslogin == true ? "href='/place/detail?score=' . $k . '&placeId=' . $place->placeId ": "onclick='alertNoti()'"; ?>><img src="../images/ic_star_empty.png" title="criuse-name"></a></button>
+                
+<?php
+}
+}
+?>
+            </h1>
+            <h3><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><?php echo ' ' . $place->address; ?></h3>
+            <div id="contextform" class="modal">
+                <span onclick="document.getElementById('contextform').style.display = 'none'" class="close" title="Close Modal">×</span>
+                <form class="modal-content animate" action="/place/detail" method="post">
+                    <span>Thông tin ngữ cảnh</span>
+                    <hr>
+                    <table class="table">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <input class="form-control" type="hidden" name="placeId" readonly="readonly" value="<?php echo $place->placeId; ?>"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><b>Điểm</b></label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="starnumber" name="rating" readonly="readonly"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><b>Thời tiết</b></label>
+                            </td>
+                            <td>
+                                <select class="form-control" name="weatherId">
+                                    <option value="1">Nắng</option>
+                                    <option value="2">Nhiều mây</option>
+                                    <option value="3">Quang mây</option>
+                                    <option value="4">Mưa</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><b>Bạn đồng hành</b></label>
+                            </td>
+                            <td>
+                                <select class="form-control" name="companionId">
+                                    <option value="1">Một mình</option>
+                                    <option value="2">Bạn bè</option>
+                                    <option value="3">Gia đình</option>
+                                    <option value="4">Người yêu</option>
+                                    <option value="5">Trẻ em</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><b>Ngân sách</b></label>
+                            </td>
+                            <td>
+                                <select class="form-control" name="budgetId">
+                                    <option value="1">Tiết kiệm</option>
+                                    <option value="2">Tùy theo chất lượng</option>
+                                    <option value="3">Có nhiều tiền</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td colspan="2" style="text-align: right">
+                                <input type="submit" value="Đánh giá" class="btn"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <hr>
+<?php echo $place->description; ?>
+        </div>
+    </div>
+</div>
+<script>
+// Get the modal
+    var modal = document.getElementById('contextform');
+// When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    function reply_click(clicked_id)
+    {
+        document.getElementById('contextform').style.display = 'block';
+        document.getElementById('starnumber').value = clicked_id;
+    }
+    function alertNoti(){
+        alert("Đăng nhập để thực hiện chức năng này!");
+    }
+</script>
